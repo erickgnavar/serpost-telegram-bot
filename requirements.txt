@@ -1,0 +1,2 @@
+python-telegram-bot==4.2.1
+serpost==0.1.0
