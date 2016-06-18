@@ -14,11 +14,14 @@ TELEGRAM_API_TOKEN = os.environ.get('TELEGRAM_API_TOKEN')
 
 format_result = lambda x: '{:%d-%m-%Y %H:%M}: {}'.format(x['date'], x['message'])
 
+help_message = """
+/track - track a package with the tracking number
+"""
 
 welcome_message = """
 Welcome {user}
-Use /track <tracking_number> to get information about your tracking number
-"""
+You can control me by sending these commands:
+""" + help_message
 
 
 def start(bot, update):
@@ -38,6 +41,10 @@ def track(bot, update, args):
     bot.sendMessage(update.message.chat_id, message)
 
 
+def help(bot, update):
+    bot.sendMessage(update.message.chat_id, help_message)
+
+
 def error(bot, update, error):
     logger.warn('Update "%s" caused error "%s"' % (update, error))
 
@@ -47,6 +54,7 @@ def main():
 
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('track', track, pass_args=True))
+    updater.dispatcher.add_handler(CommandHandler('help', help))
 
     # log all errors
     updater.dispatcher.add_error_handler(error)
