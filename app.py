@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import os
 import logging
 
@@ -12,7 +14,9 @@ logger = logging.getLogger(__name__)
 
 TELEGRAM_API_TOKEN = os.environ.get('TELEGRAM_API_TOKEN')
 
-format_result = lambda x: '{:%d-%m-%Y %H:%M}: {}'.format(x['date'], x['message'])
+
+def format_result(record):
+    return '{:%d-%m-%Y %H:%M}: {}'.format(record['date'], record['message'])
 
 help_message = """
 /track - track a package with the tracking number
