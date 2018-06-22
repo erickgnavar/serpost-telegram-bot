@@ -18,6 +18,7 @@ TELEGRAM_API_TOKEN = os.environ.get('TELEGRAM_API_TOKEN')
 def format_result(record):
     return '{:%d-%m-%Y %H:%M}: {}'.format(record['date'], record['message'])
 
+
 help_message = """
 /track - track a package with the tracking number
 """
