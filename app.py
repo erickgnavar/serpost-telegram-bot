@@ -35,16 +35,17 @@ def start_handler(bot, update):
 
 
 def track_handler(bot, update, args):
-    if len(args) and len(args[0]):
+    if len(args) == 2 and args[0] and args[1]:
         code = args[0]
-        logger.info('Tracking code: %s', code)
-        result = serpost.query_tracking_code(code)
+        year = args[1]
+        logger.info('Tracking code: %s and year: %s', code, year)
+        result = serpost.query_tracking_code(code, year=year)
         if result:
             message = '\n'.join(map(format_result, result))
         else:
             message = 'No data'
     else:
-        message = 'Please enter a tracking code'
+        message = 'Please enter a tracking code and a valid year, eg /tracking ABC123 2018'
     bot.sendMessage(update.message.chat_id, message)
 
 
